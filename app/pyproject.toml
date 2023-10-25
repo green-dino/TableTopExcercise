@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "tabletopexcercise"
+version = "0.1.0"
+description = "A table top excercise framework"
+authors = ["green-dino <104174275+green-dino@users.noreply.github.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
