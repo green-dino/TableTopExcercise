@@ -1,6 +1,6 @@
 # Tabletop Tool
 
-The Tabletop Tool is a Flask-based web application designed for tabletop gamers. It allows users to manage player data, select scenarios, perform in-depth game analysis, and build custom playbooks.
+The Tabletop Tool is a Flask-based web application designed for tabletop excercises. It allows users to manage player data, select scenarios, perform in-depth game analysis, and build custom playbooks.
 
 ## Features
 
