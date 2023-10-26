@@ -1,64 +1,57 @@
 import numpy as np
 
-# Define the functions f_k, N, and other parameters as needed
-N = 5  # Adjust N as needed
+class DynamicSystem:
+    def __init__(self):
+        # Initialize system parameters and state
+        self.N = 5
+        self.x_k = 0
 
-def f_k(x_k, u_k, w_k):
-    # Define your system dynamics function here
-    # This function should take x_k, u_k, and w_k as inputs and return x_k+1
-    return x_k + u_k + w_k  # Example dynamics
+    def f_k(self, x_k, u_k, w_k):
+        # Define your system dynamics function here
+        return x_k + u_k + w_k  # Example dynamics
 
-def calculate_cost(x, u, N):
-    # Define your cost function here
-    # This function should take x, u, and N as inputs and return the cost J_k
-    return np.sum(x) + np.sum(u)  # Example cost function
+    def calculate_cost(self, x, u):
+        # Define your cost function here
+        return np.sum(x) + np.sum(u)  # Example cost function
 
-def calculate_optimal_policy(N):
-    # Initialize lists to store optimal policies and values for each time step
-    optimal_policies = []
-    optimal_values = []
+    def calculate_optimal_policy(self):
+        optimal_policies = []
+        optimal_values = []
 
-    x_k = 0  # Initial state, adjust as needed
+        for k in range(self.N, -1, -1):
+            min_cost = float('inf')
+            best_u_k = None
 
-    for k in range(N, -1, -1):
-        min_cost = float('inf')
-        best_u_k = None
+            for u_k in range(0, 5):  # Adjust the range for u_k as needed
+                expected_cost = 0
 
-        # Iterate over possible control actions u_k
-        for u_k in range(0, 5):  # Adjust the range for u_k as needed
-            expected_cost = 0
+                next_x_k = self.f_k(self.x_k, u_k, 0)  # Assuming w_k is 0 for simplicity
 
-            # Calculate the next state x_k+1 using the system dynamics f_k
-            next_x_k = f_k(x_k, u_k, 0)  # Assuming w_k is 0 for simplicity
+                cost = self.calculate_cost(next_x_k, u_k)
 
-            # Calculate the cost for this u_k and x_k
-            cost = calculate_cost(next_x_k, u_k, k)
+                cost += optimal_values[-1] if optimal_values else 0
 
-            # Add the expected value of the next state
-            cost += optimal_values[-1] if optimal_values else 0
+                expected_cost += cost
 
-            expected_cost += cost
+                if expected_cost < min_cost:
+                    min_cost = expected_cost
+                    best_u_k = u_k
 
-            # Update the minimum cost and best control action
-            if expected_cost < min_cost:
-                min_cost = expected_cost
-                best_u_k = u_k
+            optimal_policies.insert(0, best_u_k)
+            optimal_values.insert(0, min_cost)
 
-        # Store the optimal policy and value for this time step
-        optimal_policies.insert(0, best_u_k)
-        optimal_values.insert(0, min_cost)
+            self.x_k = self.f_k(self.x_k, best_u_k, 0)
 
-        # Update the state for the next time step
-        x_k = f_k(x_k, best_u_k, 0)  # Assuming w_k is 0 for simplicity
+        return optimal_policies, optimal_values
 
-    return optimal_policies, optimal_values
+def main():
+    system = DynamicSystem()
+    optimal_policies, optimal_values = system.calculate_optimal_policy()
 
-# Calculate optimal policies and values
-optimal_policies, optimal_values = calculate_optimal_policy(N)
+    for k in range(system.N + 1):
+        print(f'Optimal policy at time step {k}: u*_{k} = {optimal_policies[k]}')
 
-# Display the optimal policy for each time step
-for k in range(N + 1):
-    print(f'Optimal policy at time step {k}: u*_{k} = {optimal_policies[k]}')
+    print(f'Optimal cost at time step 0: J_0 = {optimal_values[0]}')
 
-# Display the optimal cost at time step 0
-print(f'Optimal cost at time step 0: J_0 = {optimal_values[0]}')
+if __name__ == "__main__":
+    main()
