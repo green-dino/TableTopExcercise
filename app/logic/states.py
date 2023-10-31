@@ -21,6 +21,12 @@ def utility_group1(A, D):
         utility[f'U{n}'] = [(An - c) * sum(D.values()) for c in range(1, N2 + 1)]
     return utility
 
+# Define action sets for players
+action_sets = {f'A{i}': [f'a{i}_{j}' for j in range(1, T + 1)] for i in range(1, N + 1)}
+
+# Define the Cartesian product of action sets
+S = {f's{t}': {f'a{i}': action_sets[f'A{i}'][t - 1] for i in range(1, N + 1)} for t in range(1, T + 1)}
+
 def utility_group2(Y, D, A):
     utility = {}
     for m in range(1, N2 + 1):
@@ -28,10 +34,24 @@ def utility_group2(Y, D, A):
         utility[f'U{m}'] = [Vm(Y, D[f'D{m}']) - sum(D.values()) * A[f'A{i}'] for i in range(1, N1 + 1)]
     return utility
 
+utility_functions = {}
+for i in range(1, N + 1):
+    utility_functions[f'u{i}'] = f'u{i}(S)'
+
+# Print utility functions
+print(f'Utility Functions:')
+for i in range(1, N + 1):
+    print(f'Player {i} Utility Function: {utility_functions[f"u{i}"]}')
+
+# Define informational constraints
+informational_constraints = {}
+for i in range(1, N + 1):
+    informational_constraints[f'I{i}'] = [f'a{i}_{j}' for j in range(T)]
+
+
 # Define initial private information, common information
 P = {f'P{n}': state_space for n in range(1, N1 + 1)}
 C = {f'C{t}': {f'A{i}': action_space, f'D{i}': decision_space, f'Y{i}': observation_space} for t in range(1, T + 1) for i in range(1, N1 + 1)}
-
 
 # Define agent strategies
 strategies = {}
@@ -47,3 +67,6 @@ print(f'Action Space: {action_space}')
 print(f'Decision Space: {decision_space}')
 print(f'Observation Space: {observation_space}')
 print(f'Transition Probabilities (Qn) for Agents in Group 1: {transition_probabilities}')
+print(f'Informational Constraints:')
+for i in range(1, N + 1):
+    print(f'Player {i} Informational Constraint: {informational_constraints[f"I{i}"]}')
