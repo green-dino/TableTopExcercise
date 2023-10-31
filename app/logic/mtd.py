@@ -1,4 +1,4 @@
-# Define sets of services, weaknesses, knowledge blocks, and MTD techniques
+# Define sets of services, weaknesses, knowledge blocks, and MTD Moving Target Defense techniques
 S = {"Service1", "Service2", "Service3"}
 W = {"Weakness1", "Weakness2", "Weakness3"}
 K = {"KnowledgeBlock1", "KnowledgeBlock2", "KnowledgeBlock3"}
@@ -27,11 +27,10 @@ defender_strategies = {
     "ProbeCount-or-Period": "Reimages a server whenever it detects a threshold number of probes since the last reimage or if it has been probed at least once but not within the specified period.",
     "Control-Threshold": "Reimages a server when the fraction of servers controlled falls below a threshold.",
     "Control-Target": "Similar to Control-Threshold, but based on a target rather than a threshold.",
-
 }
 
-# Equiliberia 
-equilibira_concepts = {
+# Equilibria Concepts
+equilibrium_concepts = {
     "MaxDef": "Aggressively reimages servers, making it futile for the attacker to compromise servers.",
     "MaxAtt": "Attacker probes aggressively, and defender reimages infrequently or ineffectively.",
     "Share": "Moderate attack and defense levels where both players achieve their objectives.",
@@ -55,3 +54,7 @@ for strategy, description in attacker_strategies.items():
 print("\nDefender Strategies:")
 for strategy, description in defender_strategies.items():
     print(f"{strategy}: {description}")
+
+print("\nEquilibrium Concepts:")
+for concept, description in equilibrium_concepts.items():
+    print(f"{concept}: {description}")
