@@ -6,12 +6,35 @@ class DynamicSystem:
         self.x_k = x_0
 
     def f_k(self, x_k, u_k, w_k):
-        # Define your system dynamics function here
+        """
+        Define the system dynamics function.
+
+        Args:
+            x_k (float): Current system state.
+            u_k (str): Control action.
+            w_k (float): System noise.
+
+        Returns:
+            float: Next system state.
+        """
+        # Replace with your actual system dynamics
         return x_k + u_k + w_k  # Example dynamics
 
     def calculate_cost(self, x, u, k):
-        # Define your cost function here
-        return np.sum(x) + np.sum(u) + k  # Example cost function
+        """
+        Define the cost function.
+
+        Args:
+            x (float): Current system state.
+            u (str): Control action.
+            k (int): Time period.
+
+        Returns:
+            float: Cost value.
+        """
+        # Replace with your actual cost calculation
+        cost = np.sum(x) + np.sum(u) + k  # Example cost function
+        return cost
 
     def calculate_optimal_policy(self, maneuver_policy):
         optimal_policies = []
@@ -68,15 +91,12 @@ def main():
     for i, maneuver_policy in enumerate(maneuver_policies):
         optimal_policies, optimal_values = system.calculate_optimal_policy(maneuver_policy)
 
-        # Display the optimal policy for each time step
+        # Display the optimal policy and cost for each time step
         print(f'Policy {i + 1}: {maneuver_policy}')
         for k in range(N + 1):
             print(f'Optimal policy at time step {k}: u*_{k} = {optimal_policies[k]}')
 
-        # Display the optimal cost at time step 0
-        print(f'Optimal cost at time step 0: J_0 = {optimal_values[0]}')
-
-        print("\n")
+        print(f'Optimal cost at time step 0: J_0 = {optimal_values[0]}\n')
 
 if __name__ == "__main__":
     main()
