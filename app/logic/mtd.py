@@ -37,24 +37,42 @@ equilibrium_concepts = {
     "Fight": "Robust attack and defense activity, resulting in persistent contention with neither player achieving their objectives to a satisfactory degree."
 }
 
-# Print the 7-tuple, Attacker Strategies, and Defender Strategies
-print("7-tuple (S, RSW, W, RWK, K, RKM, M):")
-print("S (Services):", S)
-print("RSW (Relationships between Services and Weaknesses):", RSW)
-print("W (Weaknesses):", W)
-print("RWK (Relationships between Weaknesses and Knowledge Blocks):", RWK)
-print("K (Knowledge Blocks):", K)
-print("RKM (Relationships between Knowledge Blocks and MTD Techniques):", RKM)
-print("M (MTD Techniques):", M)
+# User interaction loop
+while True:
+    print("\nWelcome! Explore the available data:")
+    print("1. Enter 'S' to explore Services")
+    print("2. Enter 'W' for Weaknesses")
+    print("3. Enter 'K' for Knowledge Blocks")
+    print("4. Enter 'M' for MTD Techniques")
+    print("5. Enter 'AS' for Attacker Strategies")
+    print("6. Enter 'DS' for Defender Strategies")
+    print("7. Enter 'EC' for Equilibrium Concepts")
+    print("8. Enter 'Q' to quit")
 
-print("\nAttacker Strategies:")
-for strategy, description in attacker_strategies.items():
-    print(f"{strategy}: {description}")
+    user_input = input("Enter your choice: ").strip().upper()
 
-print("\nDefender Strategies:")
-for strategy, description in defender_strategies.items():
-    print(f"{strategy}: {description}")
-
-print("\nEquilibrium Concepts:")
-for concept, description in equilibrium_concepts.items():
-    print(f"{concept}: {description}")
+    if user_input == 'S':
+        print("Services:", S)
+    elif user_input == 'W':
+        print("Weaknesses:", W)
+    elif user_input == 'K':
+        print("Knowledge Blocks:", K)
+    elif user_input == 'M':
+        print("MTD Techniques:", M)
+    elif user_input == 'AS':
+        print("Attacker Strategies:")
+        for strategy, description in attacker_strategies.items():
+            print(f"{strategy}: {description}")
+    elif user_input == 'DS':
+        print("Defender Strategies:")
+        for strategy, description in defender_strategies.items():
+            print(f"{strategy}: {description}")
+    elif user_input == 'EC':
+        print("Equilibrium Concepts:")
+        for concept, description in equilibrium_concepts.items():
+            print(f"{concept}: {description}")
+    elif user_input == 'Q':
+        print("Exiting the program. Goodbye!")
+        break
+    else:
+        print("Invalid input. Please enter a valid option.")
